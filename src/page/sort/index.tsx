@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { SelectionSort, InsertionSort, ShellSort, MergeSort, Quicksort } from './sorts';
-import './sortLink'
+// import './sortLink'
+import './pq';
 
 enum Types {
   SEL = '选择排序',
