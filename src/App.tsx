@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Router, Route, Link } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory'
+import Welcome from './page/welcome';
+import Sort from './page/sort/index';
 import './App.css';
 
+const customHistory = createBrowserHistory()
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router history={customHistory}>
+        <div className="App">
+          <ul>
+            <li>
+              <Link to="/welcome">Home</Link>
+            </li>
+            <li>
+              <Link to="/sort">Sort</Link>
+            </li>
+          </ul>
+          <Route path="/welcome" component={Welcome} />
+          <Route path="/sort" component={Sort} />
+        </div>
+      </Router>
     );
   }
 }
