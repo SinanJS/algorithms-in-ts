@@ -126,7 +126,7 @@ function mainLink() {
         c = c.next;
     }
 }
-mainLink();
+// mainLink();
 // var pq = new MinPQ();
 // let arr = [131, 524, 6, 0, 235, 1, 75, 39, 31, 91]
 // arr.map(item => {
@@ -147,5 +147,83 @@ function main() {
     });
     console.log('pq', pq.arr)
 }
-main();
+// main();
 export default MinPQ;
+
+
+// 二叉堆 实现优先队列
+class MaxPQ {
+    pq: any[] = [];
+
+    N: number = 0;
+
+    insert(key: Compareble) {
+        this.pq[++this.N] = key;
+        this.swim(this.N);
+    }
+
+    sink(k: number) {
+        while (2 * k <= this.N) {
+            let j = 2 * k;
+            if (this.less(j, j + 1)) {
+                j++;
+            }
+            if (this.less(j, k)) {
+                break;
+            }
+            this.exch(k, j);
+            k = j;
+        }
+    }
+
+    swim(k: number) {
+        while (k > 1) {
+            if (this.less(Math.floor(k / 2), k)) {
+                this.exch(k, Math.floor(k / 2));
+                k = Math.floor(k / 2);
+            }else{
+                break;
+            }
+        }
+    }
+
+    delMax() {
+        var max = this.exch(1, this.N);
+        this.pq[this.N] = null;
+        this.sink(1);
+        this.N--;
+        return max;
+    }
+
+    size(): number {
+        return this.N;
+    }
+
+    less(i: number, j: number): boolean {
+        return this.pq[i] < this.pq[j];
+    }
+
+    exch(i: number, j: number) {
+        const t = this.pq[i];
+        this.pq[i] = this.pq[j];
+        this.pq[j] = t;
+    }
+    show(){
+        console.log(this.pq)
+    }
+}
+
+function mainHeap() {
+    let arr = [131, 524, 6, 0, 235, 1, 75, 39, 31, 91];
+    const heap = new MaxPQ();
+    const M = 4;
+    arr.map(item=>{
+        heap.insert(item);
+        if (heap.size() > M) {
+            heap.delMax()
+        }
+    })
+    heap.show();
+}
+
+mainHeap();
